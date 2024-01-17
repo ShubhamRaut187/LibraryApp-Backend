@@ -11,64 +11,7 @@ const {Bookmodel} = require('../Data Models/Book.model');
 
 const BookRoutes = Router();
 
-/**
- * @swagger
- * tags:
- *   name: Books
- *   description: API for managing books
- */
 
-/**
- * @swagger
- * /books:
- *   post:
- *     summary: Create a new book
- *     tags: [Books]
- *     security:
- *       - bearerAuth: []
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               Title:
- *                 type: string
- *               Author:
- *                 type: string
- *               Category:
- *                 type: string
- *     responses:
- *       '201':
- *         description: Book added successfully
- *         content:
- *           application/json:
- *             example:
- *               Message: Book added successfully
- *               Book:
- *                 Title: Sample Book
- *                 Author: John Doe
- *                 Category: Fiction
- *       '204':
- *         description: All input fields are mandatory
- *         content:
- *           application/json:
- *             example:
- *               Message: All input fields are mandatory.
- *       '401':
- *         description: Unauthorized
- *         content:
- *           application/json:
- *             example:
- *               Message: Not authorized
- *       '500':
- *         description: Something went wrong, please try again
- *         content:
- *           application/json:
- *             example:
- *               Message: Something went wrong, please try again
- */
 
 
 
@@ -96,51 +39,7 @@ BookRoutes.post('/',Authentication,CreatorAuthorization,async(req,res)=>{
     }
 })
 
-/**
- * @swagger
- * /books:
- *   get:
- *     summary: Get all books
- *     tags: [Books]
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - name: New
- *         in: query
- *         description: Filter new books
- *         schema:
- *           type: string
- *       - name: Old
- *         in: query
- *         description: Filter old books
- *         schema:
- *           type: string
- *     responses:
- *       '200':
- *         description: List of books
- *         content:
- *           application/json:
- *             example:
- *               Books:
- *                 - Title: Sample Book
- *                   Author: John Doe
- *                   Category: Fiction
- *               - Title: Another Book
- *                   Author: Jane Doe
- *                   Category: Mystery
- *       '401':
- *         description: Unauthorized
- *         content:
- *           application/json:
- *             example:
- *               Message: Not authorized
- *       '500':
- *         description: Something went wrong, please try again
- *         content:
- *           application/json:
- *             example:
- *               Message: Something went wrong, please try again
- */
+
 
 // Get All Book
 BookRoutes.get('/',Authentication,ViewAllAuthorization,async(req,res)=>{
@@ -167,48 +66,7 @@ BookRoutes.get('/',Authentication,ViewAllAuthorization,async(req,res)=>{
 
 })
 
-/**
- * @swagger
- * /books/{uid}:
- *   get:
- *     summary: Get books of a specific user
- *     tags: [Books]
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - name: uid
- *         in: path
- *         required: true
- *         description: User ID
- *         schema:
- *           type: string
- *     responses:
- *       '200':
- *         description: List of books
- *         content:
- *           application/json:
- *             example:
- *               Message: Books of user123
- *               Books:
- *                 - Title: Sample Book
- *                   Author: John Doe
- *                   Category: Fiction
- *               - Title: Another Book
- *                   Author: Jane Doe
- *                   Category: Mystery
- *       '401':
- *         description: Unauthorized
- *         content:
- *           application/json:
- *             example:
- *               Message: Not authorized
- *       '500':
- *         description: Something went wrong, please try again
- *         content:
- *           application/json:
- *             example:
- *               Message: Something went wrong, please try again
- */
+
 
 
 // Get Viewer Specific Books
@@ -223,45 +81,7 @@ BookRoutes.get('/:uid',Authentication,ViewerAuthorization,async(req,res)=>{
     }
 })
 
-/**
- * @swagger
- * /books/singlebook/{id}:
- *   get:
- *     summary: Get a single book
- *     tags: [Books]
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - name: id
- *         in: path
- *         required: true
- *         description: Book ID
- *         schema:
- *           type: string
- *     responses:
- *       '200':
- *         description: Book details
- *         content:
- *           application/json:
- *             example:
- *               Message: Book details for book123
- *               Book:
- *                 Title: Sample Book
- *                 Author: John Doe
- *                 Category: Fiction
- *       '401':
- *         description: Unauthorized
- *         content:
- *           application/json:
- *             example:
- *               Message: Not authorized
- *       '500':
- *         description: Something went wrong, please try again
- *         content:
- *           application/json:
- *             example:
- *               Message: Something went wrong, please try again
- */
+
 
 // Get Single book
 BookRoutes.get('/singlebook/:id',Authentication,CreatorAuthorization,async(req,res)=>{
@@ -276,58 +96,7 @@ BookRoutes.get('/singlebook/:id',Authentication,CreatorAuthorization,async(req,r
     }
 })
 
-/**
- * @swagger
- * /books/update/{id}:
- *   patch:
- *     summary: Update a book
- *     tags: [Books]
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - name: id
- *         in: path
- *         required: true
- *         description: Book ID
- *         schema:
- *           type: string
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               Title:
- *                 type: string
- *               Author:
- *                 type: string
- *               Category:
- *                 type: string
- *     responses:
- *       '200':
- *         description: Book updated successfully
- *         content:
- *           application/json:
- *             example:
- *               Message: Book updated successfully
- *               Book:
- *                 Title: Updated Book
- *                 Author: John Doe
- *                 Category: Fiction
- *       '401':
- *         description: Unauthorized
- *         content:
- *           application/json:
- *             example:
- *               Message: Not authorized
- *       '500':
- *         description: Something went wrong, please try again
- *         content:
- *           application/json:
- *             example:
- *               Message: Something went wrong, please try again
- */
+
 
 
 // Update Book
@@ -343,45 +112,7 @@ BookRoutes.patch('/update/:id',Authentication,CreatorAuthorization,async(req,res
     }
 })
 
-/**
- * @swagger
- * /books/delete/{id}:
- *   delete:
- *     summary: Delete a book
- *     tags: [Books]
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - name: id
- *         in: path
- *         required: true
- *         description: Book ID
- *         schema:
- *           type: string
- *     responses:
- *       '200':
- *         description: Book deleted successfully
- *         content:
- *           application/json:
- *             example:
- *               Message: Book deleted successfully
- *               Book:
- *                 Title: Deleted Book
- *                 Author: John Doe
- *                 Category: Fiction
- *       '401':
- *         description: Unauthorized
- *         content:
- *           application/json:
- *             example:
- *               Message: Not authorized
- *       '500':
- *         description: Something went wrong, please try again
- *         content:
- *           application/json:
- *             example:
- *               Message: Something went wrong, please try again
- */
+
 
 
 // Delete Book
