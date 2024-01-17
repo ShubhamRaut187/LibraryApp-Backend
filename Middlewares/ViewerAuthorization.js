@@ -17,7 +17,7 @@ const ViewerAuthorization = async(req,res,next)=>{
             res.status(401).send({'Message':'Not authorized'});
         }
     } catch (error) {
-        console.log(error);
+        // console.log(error);
         res.status(500).send({'Message':'Something went wrong please try again.'});
     }
 }

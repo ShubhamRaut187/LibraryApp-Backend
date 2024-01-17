@@ -1,5 +1,8 @@
 const express = require('express');
 const cors = require('cors')
+const morgan = require('morgan')
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpec = require('./Middlewares/swagger');
 //Routes
 const {AuthRoutes} = require('./Routes/AuthRoutes'); 
 const {BookRoutes} = require('./Routes/BookRoutes');
@@ -12,13 +15,14 @@ const app = express();
 // Middlewares
 app.use(express.json());
 app.use(cors());
+app.use(morgan('dev'));
 
 
 // Routes
 app.get('/',async(req,res)=>{
     res.status(200).send('Welcome to library app server !');
 });
-
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use('/auth',AuthRoutes);
 app.use('/books',BookRoutes);
 
